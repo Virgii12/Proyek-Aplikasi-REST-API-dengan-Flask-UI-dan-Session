@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Edit Pengguna{% endblock %}
+{% block content %}
+<h2 class="mb-4">Edit Pengguna</h2>
+<form method="POST" class="p-4 border rounded bg-light shadow-sm">
+    <div class="mb-3">
+        <label for="username" class="form-label fw-bold">Username</label>
+        <input type="text" class="form-control" id="username" name="username" value="{{ user[1] }}" required>
+    </div>
+    <div class="mb-3">
+        <label for="email" class="form-label fw-bold">Email</label>
+        <input type="email" class="form-control" id="email" name="email" value="{{ user[2] }}" required>
+    </div>
+    <div class="mb-3">
+        <label for="role" class="form-label fw-bold">Role</label>
+        <select class="form-select" id="role" name="role" required>
+            <option value="Teacher" {% if user[3] == "Teacher" %}selected{% endif %}>Teacher</option>
+            <option value="Student" {% if user[3] == "Student" %}selected{% endif %}>Student</option>
+        </select>
+    </div>
+    <div class="d-flex justify-content-between">
+        <button type="submit" class="btn btn-primary">Simpan</button>
+        <a href="{{ url_for('dashboard') }}" class="btn btn-secondary">Batal</a>
+    </div>
+</form>
+{% endblock %}

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .form-input-group {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+        .form-input-group label {
+            position: absolute;
+            left: 0;
+            top: 0;
+            transform-origin: 0 0;
+            transition: all 0.2s ease;
+            color: #6B7280;
+            pointer-events: none;
+        }
+        .form-input-group input:focus ~ label,
+        .form-input-group input:not(:placeholder-shown) ~ label {
+            transform: translateY(-0.5rem) scale(0.75);
+            color: #3B82F6;
+        }
+        .form-input {
+            width: 100%;
+            padding: 0.5rem 0;
+            background: transparent;
+            border: none;
+            border-bottom: 2px solid #E5E7EB;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+        .form-input:focus {
+            border-bottom-color: #3B82F6;
+        }
+        .form-input::placeholder {
+            color: transparent;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <div class="min-h-screen flex items-center justify-center">
+        <div class="max-w-md w-full bg-white rounded-xl shadow-lg p-8 space-y-6">
+            <div class="text-center">
+                <h2 class="text-3xl font-bold text-gray-900 mb-2">Welcome Back</h2>
+                <p class="text-gray-600">Please sign in to your account</p>
+            </div>
+
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 rounded" role="alert">
+                            <p>{{ message }}</p>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
+            <form action="{{ url_for('login') }}" method="POST" class="space-y-8">
+                <div class="form-input-group">
+                    <input type="email" name="email" id="email" class="form-input" placeholder=" " required>
+                    <label for="email" class="text-sm">Email Address</label>
+                </div>
+
+                <div class="form-input-group">
+                    <input type="password" name="password" id="password" class="form-input" placeholder=" " required>
+                    <label for="password" class="text-sm">Password</label>
+                </div>
+
+                <button type="submit" 
+                        class="w-full py-3 px-4 border border-transparent rounded-lg text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200">
+                    Sign In
+                </button>
+            </form>
+
+            <p class="text-center text-sm text-gray-600">
+                Don't have an account? 
+                <a href="{{ url_for('register') }}" class="font-medium text-blue-600 hover:text-blue-500 underline-offset-2 hover:underline">
+                    Create one now
+                </a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>
